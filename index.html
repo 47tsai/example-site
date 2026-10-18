@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-Hant" data-chi-theme="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Chi Framework Example</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <link rel="stylesheet" href="./components.css">
+  <link rel="stylesheet" href="./navigation.css">
+  <link rel="stylesheet" href="./framework.css">
+  <script src="./app.config.js" defer></script>
+  <script src="./framework.js" defer></script>
+</head>
+<body class="chi-page">
+  <a class="chi-skip-link" href="#main">跳到主要內容</a>
+  <div class="chi-app-shell">
+    <aside class="chi-sidebar" id="sidebar" aria-label="主要導覽">
+      <a class="chi-brand chi-sidebar__brand" href="./index.html" data-app-brand>CHI<span> / EXAMPLE</span></a>
+      <div class="chi-sidebar__label">工作區</div>
+      <nav class="chi-sidebar__nav" data-app-navigation>
+        <a class="is-active" href="#overview" aria-current="page"><svg class="chi-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>總覽</a>
+        <a href="#content"><svg class="chi-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14v15H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>內容頁示範</a>
+        <a href="#components"><svg class="chi-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8.5 9-8.5 9L3.5 12 12 3Z"/><circle cx="12" cy="12" r="2.2"/></svg>元件狀態</a>
+      </nav>
+      <div class="chi-sidebar__bottom">
+        <div class="chi-sidebar__note">共用框架管理導覽、版面、主題與元件；產品只提供自己的內容與功能。</div>
+      </div>
+    </aside>
+
+    <div class="chi-app-main">
+      <header class="chi-app-topbar">
+        <button class="chi-icon-button chi-menu-toggle" type="button" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="開啟導覽">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="chi-topbar__context"><span>Chi Design System</span><span aria-hidden="true">/</span><strong data-app-context>Framework Example</strong></div>
+        <div class="chi-topbar__actions">
+          <span class="chi-version" data-app-version>示範框架</span>
+          <label class="chi-theme-control"><span>主題</span>
+            <select class="chi-select" data-theme-select aria-label="選擇主題">
+              <option value="system">跟隨系統</option>
+              <option value="light">淺色</option>
+              <option value="dark">深色</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <main class="chi-workspace" id="main">
+        <section class="chi-page-header chi-page-header--compact" id="overview">
+          <div>
+            <p class="chi-eyebrow">FRAMEWORK PREVIEW</p>
+            <h1 class="chi-title">統一框架，專注內容。</h1>
+            <p class="chi-description chi-page-intro">這是 Chi 各網站共用骨架的參考實作。導覽、頁面節奏、主題、響應式與通用元件由框架處理，頁面只需組合自己的內容。</p>
+          </div>
+          <div class="chi-page-header__actions">
+            <button class="chi-button" type="button" data-reset-demo>重設示範</button>
+            <a class="chi-button chi-button--primary" href="#content">查看內容範例</a>
+          </div>
+        </section>
+
+        <section class="chi-summary-grid" aria-label="框架負責的共用項目">
+          <article class="chi-summary">
+            <span class="chi-summary__label">共用基礎</span>
+            <strong class="chi-summary__value">Tokens</strong>
+            <span class="chi-summary__hint">色彩、字級、間距、圓角</span>
+          </article>
+          <article class="chi-summary">
+            <span class="chi-summary__label">共用元件</span>
+            <strong class="chi-summary__value">UI Core</strong>
+            <span class="chi-summary__hint">按鈕、表單、提示與狀態</span>
+          </article>
+          <article class="chi-summary">
+            <span class="chi-summary__label">共用版型</span>
+            <strong class="chi-summary__value">App Shell</strong>
+            <span class="chi-summary__hint">導覽、頁首、內容區、手機版</span>
+          </article>
+          <article class="chi-summary">
+            <span class="chi-summary__label">產品專屬</span>
+            <strong class="chi-summary__value">Your Content</strong>
+            <span class="chi-summary__hint">資料、頁面任務與操作流程</span>
+          </article>
+        </section>
+
+        <section class="chi-section chi-example-section" id="content">
+          <div class="chi-section__header">
+            <div>
+              <h2 class="chi-section__title">內容區範例</h2>
+              <p class="chi-section__description">以下元件展示內容如何沿用共用規範，不要求每個產品使用相同的資料呈現方式。</p>
+            </div>
+            <button class="chi-button" type="button" data-toast="已更新示範內容">次要操作</button>
+          </div>
+          <div class="chi-example-grid">
+            <article class="chi-panel chi-example-panel">
+              <div class="chi-row chi-row--between">
+                <div><p class="chi-eyebrow">CONTENT MODULE</p><h3 class="chi-section__title">產品可以自行組合</h3></div>
+                <span class="chi-badge">共用樣式</span>
+              </div>
+              <p class="chi-card__description">這個區塊代表產品自己的功能內容。框架只提供一致的文字階層、表面、間距與互動狀態，不會接管產品資料或業務邏輯。</p>
+              <div class="chi-example-actions">
+                <button class="chi-button chi-button--primary" type="button" data-toast="主要操作已觸發">主要操作</button>
+                <button class="chi-button" type="button" data-toast="次要操作已觸發">取消 / 次要操作</button>
+              </div>
+            </article>
+            <article class="chi-panel chi-example-panel">
+              <p class="chi-eyebrow">FORM MODULE</p>
+              <h3 class="chi-section__title">共用表單</h3>
+              <form class="chi-demo-form" data-demo-form>
+                <label class="chi-field"><span class="chi-label">項目名稱</span><input class="chi-input" name="name" placeholder="輸入內容" required></label>
+                <label class="chi-field"><span class="chi-label">狀態</span><select class="chi-select" name="status"><option>正常</option><option>待處理</option><option>已停用</option></select></label>
+                <button class="chi-button chi-button--primary" type="submit">測試表單</button>
+              </form>
+            </article>
+          </div>
+        </section>
+
+        <section class="chi-section chi-example-section" id="components">
+          <div class="chi-section__header"><div><h2 class="chi-section__title">狀態與回饋</h2><p class="chi-section__description">不同網站應共用狀態語意與互動規則。</p></div></div>
+          <div class="chi-state-list">
+            <div class="chi-alert chi-alert--success" role="status"><strong>成功</strong><span>操作已完成，結果已更新。</span></div>
+            <div class="chi-alert chi-alert--warning" role="status"><strong>注意</strong><span>有一項內容需要確認。</span></div>
+            <div class="chi-alert chi-alert--danger" role="alert"><strong>錯誤</strong><span>無法完成操作，請檢查輸入後重試。</span></div>
+          </div>
+        </section>
+
+        <footer class="chi-app-footer"><span data-app-footer-title>Chi Design System · Framework Example</span><span data-app-footer-note>共用外觀，保留產品特色。</span></footer>
+      </main>
+    </div>
+  </div>
+  <div class="chi-toast-region" data-toast-region aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
