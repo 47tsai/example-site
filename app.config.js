@@ -1,16 +1,15 @@
-/* Product-owned configuration. Keep page content and business logic in the product. */
+/* Product-owned configuration: app identity and navigation live outside the shared shell. */
 window.CHI_APP_CONFIG = {
-  title: "Chi Framework Example",
-  brand: "CHI / EXAMPLE",
-  version: "示範框架",
-  context: "Framework Example",
-  footerTitle: "Chi Design System · Framework Example",
+  title: "Chi Framework · UI Lab",
+  brand: "CHI / LAB",
+  version: "v1.0",
+  context: "UI Lab",
+  footerTitle: "Chi Design System · UI Lab",
   footerNote: "共用外觀，保留產品特色。",
   navigation: [
     { label: "總覽", href: "#overview", icon: "grid" },
-    { label: "內容頁示範", href: "#content", icon: "file" },
-    { label: "元件狀態", href: "#components", icon: "settings" },
     { label: "介面模式", href: "#patterns", icon: "file" },
-    { label: "互動試驗場", href: "#interaction", icon: "settings" }
+    { label: "元件展示", href: "#components", icon: "settings" },
+    { label: "資料與清單", href: "#data", icon: "file" }
   ]
 };
