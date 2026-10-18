@@ -22,6 +22,7 @@
         <a class="is-active" href="#overview" aria-current="page"><svg class="chi-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>總覽</a>
         <a href="#content"><svg class="chi-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14v15H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>內容頁示範</a>
         <a href="#components"><svg class="chi-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8.5 9-8.5 9L3.5 12 12 3Z"/><circle cx="12" cy="12" r="2.2"/></svg>元件狀態</a>
+        <a href="#patterns"><svg class="chi-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M10 10v9"/></svg>介面模式</a>
       </nav>
       <div class="chi-sidebar__bottom">
         <div class="chi-sidebar__note">共用框架管理導覽、版面、主題與元件；產品只提供自己的內容與功能。</div>
@@ -120,6 +121,49 @@
             <div class="chi-alert chi-alert--success" role="status"><strong>成功</strong><span>操作已完成，結果已更新。</span></div>
             <div class="chi-alert chi-alert--warning" role="status"><strong>注意</strong><span>有一項內容需要確認。</span></div>
             <div class="chi-alert chi-alert--danger" role="alert"><strong>錯誤</strong><span>無法完成操作，請檢查輸入後重試。</span></div>
+          </div>
+        </section>
+
+        <section class="chi-section chi-example-section" id="patterns">
+          <div class="chi-section__header">
+            <div>
+              <h2 class="chi-section__title">日常介面模式</h2>
+              <p class="chi-section__description">參考現有 Chi 網站的輕量層次、明確狀態與 Material 風格互動，讓共用框架不只是一個空殼。</p>
+            </div>
+          </div>
+          <div class="chi-pattern-grid">
+            <article class="chi-panel chi-pattern-panel">
+              <p class="chi-eyebrow">COMPONENT PLAYGROUND</p>
+              <h3 class="chi-section__title">按鈕與狀態</h3>
+              <p class="chi-card__description">操作要有清楚層級，滑過、鍵盤聚焦、按下與停用都應有一致回饋。</p>
+              <div class="chi-example-actions">
+                <button class="chi-button chi-button--primary" type="button" data-toast="主要操作已觸發">主要操作</button>
+                <button class="chi-button" type="button" data-toast="次要操作已觸發">次要操作</button>
+                <button class="chi-button chi-button--danger" type="button" data-toast="危險操作示範，沒有刪除任何資料">危險操作</button>
+                <button class="chi-button" type="button" disabled>停用</button>
+              </div>
+              <div class="chi-pattern-statuses">
+                <span class="chi-badge">一般</span>
+                <span class="chi-badge chi-badge--success">成功</span>
+                <span class="chi-badge chi-badge--warning">待確認</span>
+                <span class="chi-badge chi-badge--danger">失敗</span>
+              </div>
+            </article>
+            <article class="chi-panel chi-pattern-panel">
+              <p class="chi-eyebrow">DATA PRESENTATION</p>
+              <h3 class="chi-section__title">簡潔資料表</h3>
+              <p class="chi-card__description">管理介面需要可掃讀的資料密度，不該把每一筆資料都塞進一張大卡片。</p>
+              <div class="chi-table-wrap">
+                <table class="chi-sample-table">
+                  <thead><tr><th scope="col">項目</th><th scope="col">狀態</th><th scope="col">更新</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Design tokens</strong><span>色彩與間距</span></td><td><span class="chi-status-dot chi-status-dot--success">正常</span></td><td>剛剛</td></tr>
+                    <tr><td><strong>UI components</strong><span>按鈕與表單</span></td><td><span class="chi-status-dot chi-status-dot--success">正常</span></td><td>今天</td></tr>
+                    <tr><td><strong>App shell</strong><span>導覽與響應式</span></td><td><span class="chi-status-dot chi-status-dot--warning">檢查中</span></td><td>今天</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
           </div>
         </section>
 
