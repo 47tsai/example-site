@@ -9,6 +9,7 @@ window.CHI_APP_CONFIG = {
   navigation: [
     { label: "總覽", href: "#overview", icon: "grid" },
     { label: "內容頁示範", href: "#content", icon: "file" },
-    { label: "元件狀態", href: "#components", icon: "settings" }
+    { label: "元件狀態", href: "#components", icon: "settings" },
+    { label: "介面模式", href: "#patterns", icon: "file" }
   ]
 };
