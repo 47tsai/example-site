@@ -110,4 +110,62 @@
     applyTheme("system");
     toast("示範設定已重設。");
   });
+  const filterInput = document.querySelector("[data-table-filter]");
+  const filterRows = [...document.querySelectorAll("[data-filter-row]")];
+  const filterCount = document.querySelector("[data-table-count]");
+  const filterTable = () => {
+    const query = (filterInput?.value || "").trim().toLocaleLowerCase();
+    let visible = 0;
+    filterRows.forEach(row => {
+      const matches = row.textContent.toLocaleLowerCase().includes(query);
+      row.hidden = !matches;
+      if (matches) visible += 1;
+    });
+    if (filterCount) filterCount.textContent = query ? `找到 ${visible} / ${filterRows.length} 個項目` : `顯示 ${visible} 個項目`;
+  };
+  filterInput?.addEventListener("input", filterTable);
+
+  const viewButtons = [...document.querySelectorAll("[data-view-mode]")];
+  const viewPreview = document.querySelector("[data-view-preview]");
+  const viewDescription = document.querySelector("[data-view-description]");
+  viewButtons.forEach(button => button.addEventListener("click", () => {
+    const compact = button.dataset.viewMode === "compact";
+    viewButtons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+    viewPreview?.classList.toggle("is-compact", compact);
+    if (viewDescription) viewDescription.textContent = compact
+      ? "緊湊模式：縮小垂直間距，適合高密度管理介面。"
+      : "舒適模式：留白較多，適合一般瀏覽。";
+  }));
+
+  let progress = 68;
+  const progressNode = document.querySelector("[data-demo-progress]");
+  const progressValue = document.querySelector("[data-progress-value]");
+  const progressBar = progressNode?.querySelector(".chi-progress__bar");
+  document.querySelector("[data-progress-advance]")?.addEventListener("click", () => {
+    progress = progress >= 100 ? 0 : Math.min(100, progress + 16);
+    if (progressNode) progressNode.setAttribute("aria-valuenow", String(progress));
+    if (progressBar) progressBar.style.width = `${progress}%`;
+    if (progressValue) progressValue.textContent = `${progress}%`;
+    toast(progress === 100 ? "示範工作已完成。" : `示範進度已更新至 ${progress}%。`);
+  });
+
+  let currentPage = 1;
+  const pageButtons = [...document.querySelectorAll("[data-demo-page]")];
+  const pageDescription = document.querySelector("[data-page-description]");
+  const pagePrev = document.querySelector('[data-page-step="-1"]');
+  const pageNext = document.querySelector('[data-page-step="1"]');
+  const setPage = value => {
+    currentPage = Math.max(1, Math.min(3, value));
+    pageButtons.forEach(button => {
+      if (Number(button.dataset.demoPage) === currentPage) button.setAttribute("aria-current", "page");
+      else button.removeAttribute("aria-current");
+    });
+    if (pagePrev) pagePrev.disabled = currentPage === 1;
+    if (pageNext) pageNext.disabled = currentPage === 3;
+    if (pageDescription) pageDescription.textContent = `目前顯示第 ${currentPage} 頁。`;
+  };
+  pageButtons.forEach(button => button.addEventListener("click", () => setPage(Number(button.dataset.demoPage))));
+  pagePrev?.addEventListener("click", () => setPage(currentPage - 1));
+  pageNext?.addEventListener("click", () => setPage(currentPage + 1));
+
 })();
