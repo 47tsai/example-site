@@ -65,17 +65,23 @@
     menuToggle.setAttribute("aria-expanded", String(open));
     menuToggle.setAttribute("aria-label", open ? "關閉導覽" : "開啟導覽");
   });
-  document.querySelectorAll(".chi-sidebar__nav a").forEach(link => {
-    link.addEventListener("click", () => {
-      document.querySelectorAll(".chi-sidebar__nav a").forEach(item => {
-        item.classList.remove("is-active");
-        item.removeAttribute("aria-current");
-      });
-      link.classList.add("is-active");
-      link.setAttribute("aria-current", "page");
-      closeSidebar();
+  const navLinks = [...document.querySelectorAll(".chi-sidebar__nav a")];
+  const syncActiveLink = () => {
+    const hash = window.location.hash || "#overview";
+    const active = navLinks.find(link => link.getAttribute("href") === hash) || navLinks[0];
+    navLinks.forEach(link => {
+      const selected = link === active;
+      link.classList.toggle("is-active", selected);
+      if (selected) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
     });
-  });
+  };
+  navLinks.forEach(link => link.addEventListener("click", () => {
+    closeSidebar();
+    syncActiveLink();
+  }));
+  window.addEventListener("hashchange", syncActiveLink);
+  syncActiveLink();
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") closeSidebar();
   });
