@@ -1,164 +1,73 @@
 <!doctype html>
-<html lang="zh-Hant" data-chi-theme="system">
+<html lang="zh-TW" data-theme="light" data-theme-mode="system">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#f4f7fc">
-  <meta name="description" content="Chi 共用網站框架展示：參考 Chi NAV 與 Chi MERCH 的實際介面模式。">
-  <title>Chi Framework · UI Lab</title>
+  <meta name="theme-color" content="#f6f8fc">
+  <meta name="description" content="Chi NAV 風格的空白網站框架。">
+  <title>Chi · Blank</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;650;700;750;800&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./tokens.css?v=20261018-redesign">
-  <link rel="stylesheet" href="./components.css?v=20261018-redesign">
-  <link rel="stylesheet" href="./navigation.css?v=20261018-redesign">
-  <link rel="stylesheet" href="./framework.css?v=20261018-redesign">
-  <script src="./app.config.js" defer></script>
-  <script src="./framework.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://nav.chi.qzz.io/css/nav.css">
+  <script src="https://nav.chi.qzz.io/js/theme.js" defer></script>
+  <style>
+    .blank-content { flex: 1; min-height: calc(100vh - 145px); }
+    .blank-topbar { min-height: 100px; }
+    @media (max-width: 760px) {
+      .blank-content { min-height: calc(100vh - 100px); }
+      .blank-topbar { min-height: 76px; }
+    }
+  </style>
 </head>
-<body class="chi-page">
-  <a class="skip-link" href="#main">跳到主要內容</a>
+<body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar" aria-label="主要導覽">
-      <a class="brand" href="#overview" aria-label="Chi Framework 首頁">
-        <span class="brand-mark" aria-hidden="true"><span>C</span></span>
-        <span class="brand-copy"><strong>CHI<span class="brand-light"> / LAB</span></strong><small>DESIGN SYSTEM</small></span>
-      </a>
-      <div class="sidebar-section-label">WORKSPACE <span>01</span></div>
-      <nav class="sidebar-nav chi-sidebar__nav" data-app-navigation aria-label="工作區導覽">
-        <a class="is-active" href="#overview">總覽</a>
-        <a href="#patterns">介面模式</a>
-        <a href="#components">元件展示</a>
-        <a href="#data">資料與清單</a>
-      </nav>
-      <div class="sidebar-divider"></div>
-      <div class="sidebar-section-label">REFERENCE</div>
-      <a class="sidebar-reference" href="https://tsai97216.github.io/" target="_blank" rel="noreferrer">
-        <span class="reference-icon">↗</span><span><strong>Chi 個人網站</strong><small>設計與專案索引</small></span><span class="reference-arrow">↗</span>
-      </a>
-      <a class="sidebar-reference" href="https://nav.chi.qzz.io/" target="_blank" rel="noreferrer">
-        <span class="reference-icon">⌘</span><span><strong>Chi NAV</strong><small>導航與快速搜尋</small></span><span class="reference-arrow">↗</span>
-      </a>
-      <a class="sidebar-reference" href="https://merch.chi.qzz.io/" target="_blank" rel="noreferrer">
-        <span class="reference-icon">▦</span><span><strong>Chi MERCH</strong><small>資料庫與管理介面</small></span><span class="reference-arrow">↗</span>
+      <a class="brand" href="/" aria-label="Chi 首頁">
+        <span class="brand-mark">
+          <img class="brand-icon brand-icon-light" src="https://nav.chi.qzz.io/assets/icon/icon-bw.png" alt="">
+          <img class="brand-icon brand-icon-dark" src="https://nav.chi.qzz.io/assets/icon/icon-wb.png" alt="">
+        </span>
+        <span class="brand-copy"><strong>Chi</strong><small>PERSONAL SPACE</small></span>
       </a>
       <div class="sidebar-bottom">
-        <span class="status-dot"></span><span>UI SYSTEM</span><span class="sidebar-version" data-app-version>v1.0</span>
+        <span class="sidebar-status"></span>
+        <span>READY</span>
+        <span class="sidebar-version">v1.0</span>
       </div>
     </aside>
 
-    <div class="main-shell">
-      <header class="topbar">
-        <button class="icon-button menu-toggle" type="button" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="開啟導覽">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        </button>
-        <div class="breadcrumb"><span>CHI / FRAMEWORK</span><span class="breadcrumb-slash">/</span><strong>UI Lab</strong></div>
-        <div class="topbar-actions">
-          <label class="theme-control"><span class="theme-symbol" aria-hidden="true">◐</span><span class="theme-label">外觀</span>
-            <select class="theme-select" data-theme-select aria-label="選擇外觀"><option value="system">跟隨系統</option><option value="light">淺色</option><option value="dark">深色</option></select>
-          </label>
-          <button class="avatar-button" type="button" aria-label="顯示目前示範狀態" data-toast="這是共用框架示範，尚未連接帳號系統。">C</button>
+    <div class="main-content">
+      <header class="topbar blank-topbar">
+        <div class="mobile-brand">
+          <button type="button" id="mobile-menu" aria-label="開啟導覽"><i class="fa-solid fa-bars"></i></button>
+          <span>Chi</span>
         </div>
       </header>
-
-      <main id="main" class="workspace">
-        <section class="hero" id="overview">
-          <div class="hero-copy">
-            <div class="eyebrow"><span class="eyebrow-dot"></span> SHARED UI FOUNDATION <span class="eyebrow-version">2026</span></div>
-            <h1>少一點重複，<br><span>多一點一致。</span></h1>
-            <p>把 NAV 的清楚導覽與快速搜尋，和 MERCH 的資料呈現、篩選操作整合成一套可重用的網站基礎。</p>
-            <div class="hero-actions"><a class="button button-primary" href="#patterns">探索介面 <span aria-hidden="true">↘</span></a><a class="text-link" href="https://github.com/tsai97216/example-site" target="_blank" rel="noreferrer">查看原始碼 <span aria-hidden="true">↗</span></a></div>
-          </div>
-          <div class="hero-art" aria-hidden="true">
-            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-            <div class="hero-glyph"><span>χ</span><i></i></div>
-            <div class="float-chip chip-top"><span class="mini-dot blue"></span> Design tokens <b>✓</b></div>
-            <div class="float-chip chip-bottom"><span class="mini-dot green"></span> Responsive <b>✓</b></div>
-            <div class="hero-index">CHI / 001</div>
-          </div>
-        </section>
-
-        <section class="metrics-grid" aria-label="框架組成">
-          <article class="metric"><div class="metric-top"><span>FOUNDATION</span><span class="metric-mark">01</span></div><strong>Tokens</strong><p>顏色、字級、間距、主題</p><div class="metric-line"><i style="width:92%"></i></div></article>
-          <article class="metric"><div class="metric-top"><span>COMPONENTS</span><span class="metric-mark">02</span></div><strong>UI Core</strong><p>表單、按鈕、狀態與回饋</p><div class="metric-line"><i style="width:76%"></i></div></article>
-          <article class="metric"><div class="metric-top"><span>LAYOUT</span><span class="metric-mark">03</span></div><strong>App Shell</strong><p>導覽、頁首、工作區、手機版</p><div class="metric-line"><i style="width:84%"></i></div></article>
-          <article class="metric"><div class="metric-top"><span>PRODUCT</span><span class="metric-mark">04</span></div><strong>Your Logic</strong><p>資料、頁面任務、產品流程</p><div class="metric-line"><i style="width:64%"></i></div></article>
-        </section>
-
-        <section class="section-block" id="patterns">
-          <div class="section-heading"><div><span class="section-kicker">01 / LAYOUT PATTERNS</span><h2>介面模式</h2><p>不是把每個網站做成同一張臉，而是共用好用的骨架。</p></div><span class="section-aside">BASED ON NAV + MERCH</span></div>
-          <div class="pattern-grid">
-            <article class="pattern-card pattern-nav">
-              <div class="pattern-head"><span class="pattern-icon">⌕</span><span class="pattern-label">NAVIGATION</span><span class="pattern-number">01</span></div>
-              <h3>找到東西，不必多想。</h3><p>分類導覽、關鍵字搜尋、快速開啟。把常用入口放在容易預期的位置。</p>
-              <div class="mini-search"><span>⌕</span><span>搜尋網站、分類或關鍵字…</span><kbd>⌘ K</kbd></div>
-              <div class="mini-link-row"><span class="mini-link-icon">◈</span><span>常用網站</span><span class="mini-link-meta">12 個連結</span><span class="mini-chevron">↗</span></div>
-              <div class="mini-link-row"><span class="mini-link-icon">▦</span><span>工具與服務</span><span class="mini-link-meta">8 個連結</span><span class="mini-chevron">↗</span></div>
-              <div class="pattern-foot"><span>適合：NAV、入口網站</span><span class="pattern-arrow">↗</span></div>
-            </article>
-            <article class="pattern-card pattern-data">
-              <div class="pattern-head"><span class="pattern-icon">▦</span><span class="pattern-label">DATA WORKSPACE</span><span class="pattern-number">02</span></div>
-              <h3>資訊密度，有秩序。</h3><p>摘要指標、搜尋篩選、清楚狀態。管理操作有一致的層級與回饋。</p>
-              <div class="mini-stats"><div><span>收藏總數</span><strong>128</strong></div><div><span>待到貨</span><strong>09 <i>件</i></strong></div><div><span>本月支出</span><strong>¥8,420</strong></div></div>
-              <div class="mini-table"><div><span>品項</span><span>狀態</span><span>金額</span></div><div><strong>壓克力立牌</strong><b class="state-pill state-success">已到貨</b><span>¥680</span></div><div><strong>角色吊飾</strong><b class="state-pill state-wait">待到貨</b><span>¥320</span></div></div>
-              <div class="pattern-foot"><span>適合：MERCH、管理後台</span><span class="pattern-arrow">↗</span></div>
-            </article>
-          </div>
-        </section>
-
-        <section class="section-block" id="components">
-          <div class="section-heading"><div><span class="section-kicker">02 / COMPONENT PLAYGROUND</span><h2>元件展示</h2><p>直接操作看看：元件要有清楚狀態，而不是只有靜態外觀。</p></div><span class="section-aside">INTERACTIVE</span></div>
-          <div class="component-grid">
-            <article class="surface component-panel">
-              <div class="panel-heading"><div><span class="panel-overline">A / ACTIONS</span><h3>操作按鈕</h3></div><span class="panel-count">03</span></div>
-              <p class="panel-description">主要操作只保留一個視覺焦點；危險操作明確但不喧賓奪主。</p>
-              <div class="button-showcase"><button class="button button-primary" type="button" data-toast="主要操作已觸發。">主要操作 <span aria-hidden="true">↗</span></button><button class="button button-secondary" type="button" data-toast="次要操作已觸發。">次要操作</button><button class="button button-danger" type="button" data-toast="這是危險操作樣式示範，沒有刪除任何資料。">刪除樣式</button></div>
-              <div class="panel-note"><span class="note-dot"></span> Hover、focus 與 disabled 狀態都應該清楚可辨。</div>
-            </article>
-            <article class="surface component-panel">
-              <div class="panel-heading"><div><span class="panel-overline">B / STATUS</span><h3>狀態與回饋</h3></div><span class="panel-count">04</span></div>
-              <p class="panel-description">用文字與顏色共同傳達狀態，不依賴顏色作為唯一訊息。</p>
-              <div class="status-list"><div><span class="status-pill status-success"><i></i>正常</span><span>服務已正常回應</span><span class="status-time">剛剛</span></div><div><span class="status-pill status-warning"><i></i>待處理</span><span>等待下一步操作</span><span class="status-time">進行中</span></div><div><span class="status-pill status-danger"><i></i>失敗</span><span>需要檢查或重試</span><span class="status-time">注意</span></div></div>
-              <button class="inline-action" type="button" data-toast="這是一則短暫提示，操作結果已回饋。">測試提示訊息 <span aria-hidden="true">→</span></button>
-            </article>
-            <article class="surface component-panel form-panel">
-              <div class="panel-heading"><div><span class="panel-overline">C / FORM</span><h3>表單欄位</h3></div><span class="panel-count">02</span></div>
-              <form data-demo-form class="demo-form">
-                <label class="field"><span>項目名稱 <em>*</em></span><input class="control" name="name" placeholder="例如：流螢壓克力立牌" required minlength="2"><small>至少輸入 2 個字元。</small></label>
-                <label class="field"><span>分類</span><select class="control" name="category"><option>一般項目</option><option>網站與服務</option><option>收藏資料</option><option>其他</option></select></label>
-                <div class="form-actions"><button class="button button-primary" type="submit">送出測試 <span aria-hidden="true">↗</span></button><button class="button button-quiet" type="reset">清除</button></div>
-              </form>
-            </article>
-            <article class="surface component-panel">
-              <div class="panel-heading"><div><span class="panel-overline">D / DENSITY</span><h3>資訊密度</h3></div><span class="panel-count">02</span></div>
-              <p class="panel-description">依照任務選擇舒適或緊湊檢視，不需要另造一套元件。</p>
-              <div class="segmented" role="group" aria-label="選擇資訊密度"><button type="button" data-view-mode="comfortable" aria-pressed="true">舒適</button><button type="button" data-view-mode="compact" aria-pressed="false">緊湊</button></div>
-              <div class="density-preview" data-view-preview><div><span class="preview-square">A</span><span><strong>網站名稱</strong><small>常用工具與服務</small></span><b>↗</b></div><div><span class="preview-square preview-purple">M</span><span><strong>收藏資料</strong><small>資料庫與清單</small></span><b>↗</b></div><div><span class="preview-square preview-green">S</span><span><strong>服務狀態</strong><small>健康檢查與監控</small></span><b>↗</b></div></div>
-              <div class="panel-note"><span class="note-dot"></span><span data-view-description>舒適模式：保留呼吸感，適合一般瀏覽。</span></div>
-            </article>
-          </div>
-        </section>
-
-        <section class="section-block" id="data">
-          <div class="section-heading"><div><span class="section-kicker">03 / DATA PRESENTATION</span><h2>資料與清單</h2><p>從搜尋、狀態到操作欄位，讓清單在桌面與手機上都容易閱讀。</p></div><span class="section-aside">SEARCH · FILTER · STATUS</span></div>
-          <article class="surface data-panel">
-            <div class="data-toolbar"><div><h3>最近更新</h3><p>示範資料 · 不會連接任何後端</p></div><label class="table-search"><span aria-hidden="true">⌕</span><input type="search" data-table-filter placeholder="搜尋項目…" aria-label="搜尋清單項目"></label></div>
-            <div class="table-wrap"><table class="data-table"><thead><tr><th scope="col">項目</th><th scope="col">類型</th><th scope="col">狀態</th><th scope="col">更新時間</th><th scope="col"></th></tr></thead><tbody>
-              <tr data-filter-row><td><span class="table-item"><span class="table-item-icon icon-blue">N</span><span><strong>Chi NAV</strong><small>網站導航與快速搜尋</small></span></span></td><td>Web app</td><td><span class="status-pill status-success"><i></i>正常</span></td><td>今天</td><td><button class="row-action" type="button" aria-label="Chi NAV 項目資訊" data-toast="Chi NAV：網站導航與快速搜尋。">↗</button></td></tr>
-              <tr data-filter-row><td><span class="table-item"><span class="table-item-icon icon-purple">M</span><span><strong>Chi MERCH</strong><small>收藏資料與支出統計</small></span></span></td><td>Data app</td><td><span class="status-pill status-success"><i></i>正常</span></td><td>今天</td><td><button class="row-action" type="button" aria-label="Chi MERCH 項目資訊" data-toast="Chi MERCH：收藏資料與支出統計。">↗</button></td></tr>
-              <tr data-filter-row><td><span class="table-item"><span class="table-item-icon icon-green">S</span><span><strong>Chi STATUS</strong><small>服務健康檢查</small></span></span></td><td>Monitoring</td><td><span class="status-pill status-warning"><i></i>示範中</span></td><td>昨天</td><td><button class="row-action" type="button" aria-label="Chi STATUS 項目資訊" data-toast="Chi STATUS：服務健康檢查。">↗</button></td></tr>
-              <tr data-filter-row><td><span class="table-item"><span class="table-item-icon icon-orange">A</span><span><strong>Chi AUTH</strong><small>共用身分驗證</small></span></span></td><td>Service</td><td><span class="status-pill status-neutral"><i></i>規劃中</span></td><td>本週</td><td><button class="row-action" type="button" aria-label="Chi AUTH 項目資訊" data-toast="Chi AUTH：共用身分驗證。">↗</button></td></tr>
-            </tbody></table></div>
-            <div class="table-footer"><span data-table-count aria-live="polite">顯示 4 個項目</span><span>示範用資料 <span class="footer-divider">/</span> 僅供介面預覽</span></div>
-          </article>
-        </section>
-
-        <footer class="page-footer"><div><strong>CHI / FRAMEWORK</strong><span>一套共用規範，保留每個產品的個性。</span></div><div class="footer-links"><a href="https://nav.chi.qzz.io/" target="_blank" rel="noreferrer">NAV ↗</a><a href="https://merch.chi.qzz.io/" target="_blank" rel="noreferrer">MERCH ↗</a><a href="https://github.com/tsai97216/example-site" target="_blank" rel="noreferrer">SOURCE ↗</a></div></footer>
-      </main>
+      <main id="main" class="content-wrap blank-content" aria-label="空白內容區"></main>
     </div>
   </div>
-  <div class="mobile-scrim" data-sidebar-scrim></div>
-  <div class="toast-region" data-toast-region aria-live="polite" aria-atomic="false"></div>
+  <div class="mobile-scrim" id="mobile-scrim"></div>
+  <script>
+    (() => {
+      const sidebar = document.getElementById('sidebar');
+      const scrim = document.getElementById('mobile-scrim');
+      const toggle = document.getElementById('mobile-menu');
+      const close = () => {
+        sidebar.classList.remove('mobile-open');
+        scrim.classList.remove('visible');
+      };
+      toggle?.addEventListener('click', () => {
+        sidebar.classList.toggle('mobile-open');
+        scrim.classList.toggle('visible');
+      });
+      scrim?.addEventListener('click', close);
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') close();
+      });
+    })();
+  </script>
 </body>
 </html>
