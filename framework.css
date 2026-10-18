@@ -295,3 +295,5 @@ button { color: inherit; }
   .footer-links { flex-wrap: wrap; gap: 14px; }
   .toast-region { right: 12px; bottom: 12px; width: calc(100vw - 24px); }
 }
+
+.mobile-scrim.is-visible { opacity: 1; pointer-events: auto; }
