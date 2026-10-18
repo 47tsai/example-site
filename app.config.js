@@ -10,6 +10,7 @@ window.CHI_APP_CONFIG = {
     { label: "總覽", href: "#overview", icon: "grid" },
     { label: "內容頁示範", href: "#content", icon: "file" },
     { label: "元件狀態", href: "#components", icon: "settings" },
-    { label: "介面模式", href: "#patterns", icon: "file" }
+    { label: "介面模式", href: "#patterns", icon: "file" },
+    { label: "互動試驗場", href: "#interaction", icon: "settings" }
   ]
 };
