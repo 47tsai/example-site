@@ -1,21 +1,22 @@
-# Chi Framework Demo
+# Chi Example Site
 
-這個 repository 是獨立的 GitHub Pages 示範站，用來驗證 Chi 共用網站框架，不依賴 `chi-design-system` 的子路徑或其他網站的部署設定。
+Chi 個人網站的空白響應式起始框架。此專案只提供共用頁面外殼，不預載示範內容。
 
-## Demo
+## 專案結構
 
-啟用 GitHub Pages 後，首頁即為完整互動示範：側邊導覽、響應式版型、系統／淺色／深色主題、共用按鈕、表單與狀態回饋。
+- `index.html`：語意化頁面結構
+- `styles.css`：設計 tokens、主題與響應式版面
+- `app.js`：導覽抽屜、側欄與主題互動
+- `.github/workflows/deploy-pages.yml`：GitHub Pages 部署流程
 
-## 本機預覽
+## 設計原則
 
-直接用瀏覽器開啟 `index.html` 即可。若瀏覽器限制本機腳本，使用任意靜態 HTTP server 預覽。
+- 手機優先，桌面側欄與手機抽屜分開處理
+- Chi 藍色設計語言，支援跟隨系統、淺色及深色模式
+- 44px 觸控目標、瀏海安全區、鍵盤操作與減少動態效果
+- 原生 HTML、CSS、JavaScript，不需建置工具
+- 共用外殼與未來的頁面內容保持分離
 
-## 檔案
+## 預覽
 
-- `index.html`: 示範頁內容
-- `tokens.css`: 設計 tokens
-- `components.css`: 共用基礎元件
-- `navigation.css`: 導覽與互動元件樣式
-- `framework.css`: App Shell 與示範頁版型
-- `framework.js`: 主題、行動版導覽、提示與表單互動
-- `app.config.js`: 品牌、導覽與頁尾設定
+https://tsai97216.github.io/example-site/
