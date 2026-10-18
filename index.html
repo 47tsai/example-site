@@ -1,303 +1,45 @@
 <!doctype html>
 <html lang="zh-Hant" data-theme="light" data-theme-mode="system">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#f7f9fc">
-  <meta name="description" content="Chi 共用網站空白框架。">
-  <title>Chi · Blank</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      color-scheme: light;
-      --page: #f7f9fc;
-      --surface: #fff;
-      --surface-hover: #f1f4f9;
-      --text: #202938;
-      --muted: #687386;
-      --border: #e4e8ef;
-      --accent: #4a88fc;
-      --accent-soft: #edf4ff;
-      --shadow-drawer: 0 16px 48px rgb(15 23 42 / 16%);
-      --sidebar-width: 256px;
-      --topbar-height: 64px;
-      --ease-out: cubic-bezier(.2, .75, .25, 1);
-      font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-synthesis: none;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --page: #11151c;
-      --surface: #171d27;
-      --surface-hover: #222b39;
-      --text: #edf2f9;
-      --muted: #9aa8bb;
-      --border: #2a3443;
-      --accent: #80aaff;
-      --accent-soft: #1d2c46;
-      --shadow-drawer: 0 16px 48px rgb(0 0 0 / 38%);
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html { min-width: 320px; min-height: 100%; background: var(--page); }
-    body { min-width: 320px; min-height: 100vh; min-height: 100dvh; margin: 0; background: var(--page); color: var(--text); }
-    body.drawer-open { overflow: hidden; }
-    button, a { font: inherit; }
-    button { color: inherit; }
-    button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-    button { -webkit-tap-highlight-color: transparent; }
-    .app-shell { min-height: 100vh; min-height: 100dvh; }
-    .sidebar {
-      position: fixed; inset: 0 auto 0 0; z-index: 20;
-      display: flex; flex-direction: column;
-      width: var(--sidebar-width); padding: 24px 16px 16px;
-      background: var(--surface); border-right: 1px solid var(--border);
-      transition: width 180ms var(--ease-out), transform 220ms var(--ease-out);
-    }
-    .brand {
-      display: flex; align-items: center; gap: 12px;
-      min-width: 0; min-height: 48px; padding: 0 8px;
-      color: var(--text); text-decoration: none;
-    }
-    .brand-mark { display: grid; flex: 0 0 36px; place-items: center; width: 36px; height: 36px; overflow: hidden; border-radius: 10px; }
-    .brand-icon { display: block; width: 36px; height: 36px; object-fit: contain; }
-    .brand-icon-dark { display: none; }
-    :root[data-theme="dark"] .brand-icon-light { display: none; }
-    :root[data-theme="dark"] .brand-icon-dark { display: block; }
-    .brand-copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .brand-copy strong { font-size: 17px; font-weight: 750; line-height: 1.25; letter-spacing: -.025em; }
-    .brand-copy small { color: var(--muted); font-size: 9px; font-weight: 700; line-height: 1.4; letter-spacing: .13em; }
-    .sidebar-rule { height: 1px; margin: 22px 4px; background: var(--border); }
-    .sidebar-bottom { display: flex; align-items: center; gap: 9px; margin-top: auto; padding: 14px 10px 4px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .09em; }
-    .status-dot { width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; background: #3ab982; box-shadow: 0 0 0 3px rgb(58 185 130 / 12%); }
-    .sidebar-version { margin-left: auto; font-size: 10px; font-weight: 500; letter-spacing: 0; }
-    .main-content { min-width: 0; min-height: 100vh; min-height: 100dvh; margin-left: var(--sidebar-width); transition: margin-left 180ms var(--ease-out); }
-    .topbar {
-      display: flex; align-items: center; min-width: 0; height: var(--topbar-height);
-      padding: 0 28px; background: var(--surface); border-bottom: 1px solid var(--border);
-    }
-    .desktop-title { color: var(--muted); font-size: 13px; font-weight: 500; }
-    .mobile-brand { display: none; align-items: center; justify-content: flex-start; gap: 12px; width: 100%; min-width: 0; }
-    .mobile-brand-name { overflow: hidden; color: var(--text); font-size: 16px; font-weight: 700; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
-    .icon-button {
-      display: inline-grid; flex: 0 0 44px; place-items: center;
-      width: 44px; height: 44px; margin: 0; padding: 0;
-      border: 1px solid transparent; border-radius: 12px;
-      background: transparent; color: var(--text); cursor: pointer;
-      transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
-    }
-    .icon-button:hover { background: var(--surface-hover); border-color: var(--border); }
-    .icon-button svg { display: block; width: 21px; height: 21px; }
-    .content { min-height: calc(100vh - var(--topbar-height)); min-height: calc(100dvh - var(--topbar-height)); }
-    .theme-toggle {
-      position: fixed; right: 20px; bottom: 20px; z-index: 30;
-      display: grid; place-items: center; width: 44px; height: 44px;
-      border: 1px solid var(--border); border-radius: 13px;
-      background: var(--surface); color: var(--muted);
-      box-shadow: 0 4px 16px rgb(20 30 50 / 8%); cursor: pointer;
-      transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
-    }
-    .theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
-    .theme-toggle svg { width: 19px; height: 19px; }
-    .scrim { display: none; }
-    .sidebar.collapsed { width: 76px; padding-inline: 12px; }
-    .sidebar.collapsed .brand { justify-content: center; padding-inline: 0; }
-    .sidebar.collapsed .brand-copy, .sidebar.collapsed .sidebar-rule,
-    .sidebar.collapsed .sidebar-bottom > span:not(.status-dot) { display: none; }
-    .sidebar.collapsed .sidebar-bottom { justify-content: center; padding-inline: 0; }
-    .app-shell.is-collapsed .main-content { margin-left: 76px; }
-    .sidebar-toggle { position: absolute; top: 83px; right: -14px; z-index: 2; width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 50%; background: var(--surface); color: var(--muted); cursor: pointer; }
-    .sidebar-toggle:hover { color: var(--accent); border-color: var(--accent); }
-    @media (max-width: 760px) {
-      :root { --topbar-height: 64px; }
-      .app-shell { min-height: 100vh; min-height: 100dvh; }
-      .sidebar, .sidebar.collapsed {
-        position: fixed; inset: 0 auto 0 0; z-index: 1001;
-        display: flex; flex-direction: column;
-        width: min(304px, calc(100vw - 48px)); height: 100vh; height: 100dvh;
-        padding: calc(env(safe-area-inset-top) + 18px) 18px calc(env(safe-area-inset-bottom) + 16px);
-        overflow-y: auto; overscroll-behavior: contain;
-        border: 0; border-right: 1px solid var(--border); border-radius: 0;
-        background: var(--surface); box-shadow: var(--shadow-drawer);
-        transform: translateX(-102%); visibility: hidden;
-        transition: transform 220ms var(--ease-out), visibility 220ms linear;
-        will-change: transform;
-      }
-      .sidebar.mobile-open, .sidebar.collapsed.mobile-open { transform: translateX(0); visibility: visible; }
-      .sidebar.collapsed .brand { justify-content: flex-start; padding-inline: 8px; }
-      .sidebar.collapsed .brand-copy, .sidebar.collapsed .sidebar-rule,
-      .sidebar.collapsed .sidebar-bottom > span:not(.status-dot) { display: flex; }
-      .sidebar.collapsed .sidebar-rule { display: block; }
-      .sidebar.collapsed .sidebar-bottom { justify-content: flex-start; padding-inline: 10px; }
-      .sidebar-toggle { display: none; }
-      .main-content, .app-shell.is-collapsed .main-content { width: 100%; min-width: 0; margin: 0; }
-      .topbar {
-        position: relative; z-index: 10; display: flex;
-        width: 100%; height: var(--topbar-height); min-height: var(--topbar-height);
-        padding: 0 16px; padding-top: env(safe-area-inset-top);
-        border: 0; border-bottom: 1px solid var(--border);
-        background: var(--surface);
-      }
-      .mobile-brand { display: flex; }
-      .mobile-brand .icon-button { margin: 0; }
-      .content { min-height: calc(100dvh - var(--topbar-height)); padding-bottom: calc(env(safe-area-inset-bottom) + 72px); }
-      .scrim {
-        display: block; position: fixed; inset: 0; z-index: 1000;
-        background: rgb(12 18 30 / 44%); opacity: 0; visibility: hidden;
-        transition: opacity 220ms ease, visibility 220ms linear;
-      }
-      .scrim.visible { opacity: 1; visibility: visible; }
-      .theme-toggle {
-        right: max(16px, env(safe-area-inset-right));
-        bottom: max(16px, env(safe-area-inset-bottom));
-        width: 44px; height: 44px;
-      }
-    }
-    @media (min-width: 761px) {
-      .sidebar.mobile-open { transform: none; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4f7fc">
+<meta name="description" content="Chi 個人網站的乾淨、響應式起始框架。">
+<title>Chi</title>
+<link rel="icon" href="https://nav.chi.qzz.io/assets/icon/icon-bw.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+<script src="./app.js" defer></script>
 </head>
 <body>
-  <div class="app-shell" id="app-shell">
-    <aside class="sidebar" id="sidebar" aria-label="主要導覽" aria-hidden="false">
-      <a class="brand" href="./" aria-label="Chi 首頁">
-        <span class="brand-mark">
-          <img class="brand-icon brand-icon-light" src="https://nav.chi.qzz.io/assets/icon/icon-bw.png" alt="">
-          <img class="brand-icon brand-icon-dark" src="https://nav.chi.qzz.io/assets/icon/icon-wb.png" alt="">
-        </span>
-        <span class="brand-copy"><strong>Chi</strong><small>PERSONAL SPACE</small></span>
-      </a>
-      <div class="sidebar-rule" aria-hidden="true"></div>
-      <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-label="收合側邊欄" title="收合側邊欄">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <div class="sidebar-bottom">
-        <span class="status-dot" aria-hidden="true"></span><span>CHI</span><span class="sidebar-version">v1.0</span>
-      </div>
-    </aside>
-    <main class="main-content">
-      <header class="topbar">
-        <span class="desktop-title">PERSONAL SPACE</span>
-        <div class="mobile-brand">
-          <button class="icon-button" id="mobile-menu" type="button" aria-label="開啟導覽選單" aria-controls="sidebar" aria-expanded="false">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          </button>
-          <span class="mobile-brand-name">Chi</span>
-        </div>
-      </header>
-      <div class="content" id="main" aria-label="空白內容區"></div>
-    </main>
-  </div>
-  <div class="scrim" id="scrim" aria-hidden="true"></div>
-  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="外觀模式：跟隨系統，點擊切換" title="跟隨系統">
-    <svg id="theme-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-  </button>
-  <script>
-    (() => {
-      const root = document.documentElement;
-      const shell = document.getElementById('app-shell');
-      const sidebar = document.getElementById('sidebar');
-      const desktopToggle = document.getElementById('sidebar-toggle');
-      const mobileToggle = document.getElementById('mobile-menu');
-      const scrim = document.getElementById('scrim');
-      const themeToggle = document.getElementById('theme-toggle');
-      const themeIcon = document.getElementById('theme-icon');
-      const media = window.matchMedia('(prefers-color-scheme: dark)');
-      const modes = ['system', 'light', 'dark'];
-      const labels = { system: '跟隨系統', light: '淺色模式', dark: '深色模式' };
-      const icons = {
-        system: '<path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>',
-        light: '<circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
-        dark: '<path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.8 8.8 0 1 0 20.2 15.2Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>'
-      };
-      let mode = 'system';
-      let previousFocus = null;
-      try {
-        const saved = localStorage.getItem('chi-nav-theme');
-        if (modes.includes(saved)) mode = saved;
-      } catch {}
-
-      function applyTheme() {
-        const dark = mode === 'dark' || (mode === 'system' && media.matches);
-        root.dataset.theme = dark ? 'dark' : 'light';
-        root.dataset.themeMode = mode;
-        themeIcon.innerHTML = icons[mode];
-        themeToggle.title = labels[mode];
-        themeToggle.setAttribute('aria-label', '外觀模式：' + labels[mode] + '，點擊切換');
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#11151c' : '#f7f9fc');
-      }
-      function isMobile() { return window.matchMedia('(max-width: 760px)').matches; }
-      function openDrawer() {
-        if (!isMobile()) return;
-        previousFocus = document.activeElement;
-        sidebar.classList.add('mobile-open');
-        scrim.classList.add('visible');
-        document.body.classList.add('drawer-open');
-        sidebar.setAttribute('aria-hidden', 'false');
-        mobileToggle.setAttribute('aria-expanded', 'true');
-        window.requestAnimationFrame(() => {
-          const firstFocusable = sidebar.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
-          firstFocusable?.focus({ preventScroll: true });
-        });
-      }
-      function closeDrawer({ restoreFocus = true } = {}) {
-        sidebar.classList.remove('mobile-open');
-        scrim.classList.remove('visible');
-        document.body.classList.remove('drawer-open');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        sidebar.setAttribute('aria-hidden', isMobile() ? 'true' : 'false');
-        if (restoreFocus && previousFocus instanceof HTMLElement) previousFocus.focus({ preventScroll: true });
-      }
-      mobileToggle.addEventListener('click', () => {
-        sidebar.classList.contains('mobile-open') ? closeDrawer() : openDrawer();
-      });
-      scrim.addEventListener('click', () => closeDrawer());
-      document.addEventListener('keydown', event => {
-        if (!sidebar.classList.contains('mobile-open')) return;
-        if (event.key === 'Escape') {
-          event.preventDefault();
-          closeDrawer();
-          return;
-        }
-        if (event.key === 'Tab') {
-          const focusable = [...sidebar.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')];
-          if (!focusable.length) { event.preventDefault(); return; }
-          const first = focusable[0], last = focusable[focusable.length - 1];
-          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-        }
-      });
-      desktopToggle.addEventListener('click', () => {
-        const collapsed = shell.classList.toggle('is-collapsed');
-        sidebar.classList.toggle('collapsed', collapsed);
-        desktopToggle.setAttribute('aria-label', collapsed ? '展開側邊欄' : '收合側邊欄');
-        desktopToggle.title = collapsed ? '展開側邊欄' : '收合側邊欄';
-        desktopToggle.firstElementChild.innerHTML = collapsed
-          ? '<path d="m9.5 5 7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
-          : '<path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>';
-      });
-      themeToggle.addEventListener('click', () => {
-        mode = modes[(modes.indexOf(mode) + 1) % modes.length];
-        try { localStorage.setItem('chi-nav-theme', mode); } catch {}
-        applyTheme();
-      });
-      media.addEventListener?.('change', () => { if (mode === 'system') applyTheme(); });
-      window.addEventListener('resize', () => {
-        if (!isMobile()) closeDrawer({ restoreFocus: false });
-        sidebar.setAttribute('aria-hidden', isMobile() && !sidebar.classList.contains('mobile-open') ? 'true' : 'false');
-      });
-      sidebar.setAttribute('aria-hidden', isMobile() ? 'true' : 'false');
-      applyTheme();
-    })();
-  </script>
+<a class="skip-link" href="#main">跳至主要內容</a>
+<div class="app-shell" id="app-shell">
+<aside class="sidebar" id="sidebar" aria-label="主要導覽" aria-hidden="false">
+<div class="sidebar-top">
+<a class="brand" href="./" aria-label="Chi 首頁">
+<span class="brand-mark" aria-hidden="true"><img class="brand-icon brand-icon-light" src="https://nav.chi.qzz.io/assets/icon/icon-bw.png" alt=""><img class="brand-icon brand-icon-dark" src="https://nav.chi.qzz.io/assets/icon/icon-wb.png" alt=""></span>
+<span class="brand-copy"><strong>Chi</strong><small>PERSONAL SPACE</small></span></a>
+<button class="icon-button sidebar-close" id="sidebar-close" type="button" aria-label="關閉導覽選單"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+</div>
+<div class="sidebar-divider" aria-hidden="true"></div><div class="sidebar-spacer"></div>
+<div class="sidebar-footer"><span class="status-indicator" aria-hidden="true"></span><span class="sidebar-footer-label">CHI</span><span class="sidebar-version">v1.0</span></div>
+<button class="sidebar-collapse" id="sidebar-collapse" type="button" aria-label="收合側邊欄" title="收合側邊欄"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5-7 7 7 7"/></svg></button>
+</aside>
+<div class="drawer-scrim" id="drawer-scrim" aria-hidden="true"></div>
+<div class="app-main">
+<header class="topbar">
+<div class="mobile-heading">
+<button class="icon-button menu-trigger" id="menu-trigger" type="button" aria-label="開啟導覽選單" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<a class="mobile-brand" href="./" aria-label="Chi 首頁">Chi</a>
+</div>
+<div class="desktop-heading" aria-hidden="true">PERSONAL SPACE</div>
+<div class="topbar-actions"><button class="icon-button theme-trigger" id="theme-trigger" type="button" aria-label="外觀模式：跟隨系統" title="外觀：跟隨系統"><svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg><span class="theme-label" id="theme-label">系統</span></button></div>
+</header>
+<main class="main-content" id="main" tabindex="-1" aria-label="主要內容"></main>
+</div>
+</div>
 </body>
 </html>
