@@ -151,3 +151,23 @@ button, input, select { font: inherit; }
 @media (hover: none) {
   .chi-summary:hover { transform: none; }
 }
+
+
+/* Interactive playground: clear hit targets, visible states and responsive previews. */
+.chi-pattern-search { width: 100%; }
+.chi-search__input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--chi-color-text); font: inherit; }
+.chi-search__input::placeholder { color: var(--chi-color-text-subtle); }
+.chi-sample-table tr[hidden] { display: none; }
+.chi-sample-table tr:not([hidden]) { animation: chi-row-enter 140ms ease-out; }
+@keyframes chi-row-enter { from { opacity: .55; } to { opacity: 1; } }
+.chi-view-preview { display: flex; flex-direction: column; gap: .75rem; padding: 1rem; }
+.chi-view-preview > span { display: block; padding: .75rem .85rem; border: 1px solid var(--chi-color-border); border-radius: var(--chi-radius-md); background: var(--chi-color-surface); color: var(--chi-color-text-muted); font-size: var(--chi-text-sm); transition: padding var(--chi-transition-fast); }
+.chi-view-preview.is-compact { gap: .25rem; }
+.chi-view-preview.is-compact > span { padding-block: .35rem; border-radius: var(--chi-radius-sm); }
+.chi-segmented__item:focus-visible, .chi-pagination__item:focus-visible { outline: 3px solid var(--chi-color-focus); outline-offset: 2px; }
+.chi-pagination__item[disabled] { cursor: not-allowed; opacity: .4; }
+.chi-pagination__item[aria-current=page] { border-color: var(--chi-color-accent-border); background: var(--chi-color-accent-soft); color: var(--chi-color-accent); font-weight: 750; }
+.chi-divider { width: 100%; height: 1px; background: var(--chi-color-border); }
+@media (prefers-reduced-motion: reduce) {
+ .chi-sample-table tr:not([hidden]) { animation: none; }
+}
