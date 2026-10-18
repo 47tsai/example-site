@@ -5,67 +5,143 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f6f8fc">
-  <meta name="description" content="Chi NAV 風格的空白網站框架。">
+  <meta name="description" content="Chi 共用網站空白框架。">
   <title>Chi · Blank</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="https://nav.chi.qzz.io/css/nav.css">
-  <script src="https://nav.chi.qzz.io/js/theme.js" defer></script>
   <style>
-    .blank-content { flex: 1; min-height: calc(100vh - 145px); }
-    .blank-topbar { min-height: 100px; }
+    .sidebar-toggle { display: grid; place-items: center; }
+    .sidebar.collapsed { width: 76px; padding-inline: 12px; }
+    .sidebar.collapsed .brand-copy,
+    .sidebar.collapsed .sidebar-bottom > span:not(.sidebar-status) { display: none; }
+    .sidebar.collapsed .brand { justify-content: center; padding-inline: 0; }
+    .sidebar.collapsed .sidebar-toggle { right: 23px; top: 80px; }
+    .main-content { transition: margin-left var(--chi-transition); }
+    .sidebar.collapsed ~ .main-content { margin-left: 76px; }
+    .blank-topbar { min-height: 82px; align-items: center; padding-top: 20px; padding-bottom: 20px; }
+    .blank-content { flex: 1; min-height: calc(100vh - 82px); padding-top: 0; padding-bottom: 0; }
+    .theme-toggle {
+      position: fixed; z-index: 40; right: 18px; bottom: 18px;
+      display: grid; place-items: center; width: 40px; height: 40px;
+      border: 1px solid var(--chi-color-border-strong); border-radius: 10px;
+      background: var(--chi-color-surface); color: var(--chi-color-text-muted);
+      box-shadow: var(--chi-shadow-sm); cursor: pointer;
+      transition: color var(--chi-transition), border-color var(--chi-transition), background var(--chi-transition);
+    }
+    .theme-toggle:hover { color: var(--chi-color-accent); border-color: var(--chi-color-accent-border); }
+    .mobile-brand { align-items: center; gap: 10px; }
+    .mobile-brand button { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--chi-color-border); border-radius: 8px; background: var(--chi-color-surface); color: var(--chi-color-text-muted); cursor: pointer; }
     @media (max-width: 760px) {
-      .blank-content { min-height: calc(100vh - 100px); }
-      .blank-topbar { min-height: 76px; }
+      .sidebar { transition: transform var(--chi-transition); }
+      .sidebar.collapsed { width: min(290px, 86vw); padding: 27px 17px 16px; }
+      .sidebar.collapsed .brand-copy,
+      .sidebar.collapsed .sidebar-bottom > span:not(.sidebar-status) { display: initial; }
+      .sidebar.collapsed .brand { justify-content: flex-start; padding: 0 9px; }
+      .sidebar.collapsed .sidebar-toggle { display: none; }
+      .main-content, .sidebar.collapsed ~ .main-content { margin-left: 0; }
+      .blank-topbar { min-height: 68px; padding: 16px 20px; }
+      .blank-content { min-height: calc(100vh - 68px); padding: 0 20px; }
+      .theme-toggle { right: 12px; bottom: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .main-content, .theme-toggle { transition: none; }
     }
   </style>
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar" aria-label="主要導覽">
-      <a class="brand" href="/" aria-label="Chi 首頁">
+      <a class="brand" href="#" aria-label="Chi 首頁">
         <span class="brand-mark">
           <img class="brand-icon brand-icon-light" src="https://nav.chi.qzz.io/assets/icon/icon-bw.png" alt="">
           <img class="brand-icon brand-icon-dark" src="https://nav.chi.qzz.io/assets/icon/icon-wb.png" alt="">
         </span>
         <span class="brand-copy"><strong>Chi</strong><small>PERSONAL SPACE</small></span>
       </a>
+      <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-label="收合側邊欄" title="收合側邊欄"><span aria-hidden="true">‹</span></button>
       <div class="sidebar-bottom">
-        <span class="sidebar-status"></span>
-        <span>READY</span>
+        <span class="sidebar-status" aria-hidden="true"></span>
+        <span>CHI</span>
         <span class="sidebar-version">v1.0</span>
       </div>
     </aside>
 
-    <div class="main-content">
+    <main class="main-content">
       <header class="topbar blank-topbar">
         <div class="mobile-brand">
-          <button type="button" id="mobile-menu" aria-label="開啟導覽"><i class="fa-solid fa-bars"></i></button>
+          <button type="button" id="mobile-menu" aria-label="開啟導覽"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
           <span>Chi</span>
         </div>
       </header>
-      <main id="main" class="content-wrap blank-content" aria-label="空白內容區"></main>
-    </div>
+      <div id="main" class="content-wrap blank-content" aria-label="空白內容區"></div>
+    </main>
   </div>
   <div class="mobile-scrim" id="mobile-scrim"></div>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="外觀模式：跟隨系統，點擊切換" title="跟隨系統"><i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i></button>
   <script>
     (() => {
+      const root = document.documentElement;
       const sidebar = document.getElementById('sidebar');
+      const desktopToggle = document.getElementById('sidebar-toggle');
+      const mobileToggle = document.getElementById('mobile-menu');
       const scrim = document.getElementById('mobile-scrim');
-      const toggle = document.getElementById('mobile-menu');
-      const close = () => {
+      const themeToggle = document.getElementById('theme-toggle');
+      const modes = ['system', 'light', 'dark'];
+      const icons = {
+        system: 'fa-solid fa-circle-half-stroke',
+        light: 'fa-solid fa-sun',
+        dark: 'fa-solid fa-moon'
+      };
+      const labels = { system: '跟隨系統', light: '淺色模式', dark: '深色模式' };
+      const media = window.matchMedia('(prefers-color-scheme: dark)');
+      let mode = 'system';
+      try {
+        const saved = localStorage.getItem('chi-nav-theme');
+        if (modes.includes(saved)) mode = saved;
+      } catch {}
+
+      function applyTheme() {
+        const dark = mode === 'dark' || (mode === 'system' && media.matches);
+        root.dataset.theme = dark ? 'dark' : 'light';
+        root.dataset.themeMode = mode;
+        themeToggle.innerHTML = '<i class="' + icons[mode] + '" aria-hidden="true"></i>';
+        themeToggle.title = labels[mode];
+        themeToggle.setAttribute('aria-label', '外觀模式：' + labels[mode] + '，點擊切換');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#17191f' : '#f6f8fc');
+      }
+      themeToggle.addEventListener('click', () => {
+        mode = modes[(modes.indexOf(mode) + 1) % modes.length];
+        try { localStorage.setItem('chi-nav-theme', mode); } catch {}
+        applyTheme();
+      });
+      media.addEventListener?.('change', () => { if (mode === 'system') applyTheme(); });
+      applyTheme();
+
+      desktopToggle.addEventListener('click', () => {
+        const collapsed = sidebar.classList.toggle('collapsed');
+        desktopToggle.setAttribute('aria-label', collapsed ? '展開側邊欄' : '收合側邊欄');
+        desktopToggle.title = collapsed ? '展開側邊欄' : '收合側邊欄';
+        desktopToggle.firstElementChild.textContent = collapsed ? '›' : '‹';
+      });
+      function closeMobileMenu() {
         sidebar.classList.remove('mobile-open');
         scrim.classList.remove('visible');
-      };
-      toggle?.addEventListener('click', () => {
-        sidebar.classList.toggle('mobile-open');
-        scrim.classList.toggle('visible');
+        mobileToggle?.setAttribute('aria-expanded', 'false');
+      }
+      mobileToggle?.addEventListener('click', () => {
+        const open = sidebar.classList.toggle('mobile-open');
+        scrim.classList.toggle('visible', open);
+        mobileToggle.setAttribute('aria-expanded', String(open));
       });
-      scrim?.addEventListener('click', close);
+      scrim.addEventListener('click', closeMobileMenu);
       document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') close();
+        if (event.key === 'Escape') closeMobileMenu();
+      });
+      window.addEventListener('resize', () => {
+        if (window.matchMedia('(min-width: 761px)').matches) closeMobileMenu();
       });
     })();
   </script>
